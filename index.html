@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason Ching | Sovereign Intelligence Research</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--darker);
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--darker);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            position: relative;
+            overflow: hidden;
+            padding-top: 5rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 30%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .banner-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            display: block;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .banner-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Mission Section */
+        .mission {
+            background: white;
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .mission-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--darker);
+        }
+
+        .mission-content p {
+            font-size: 1.15rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .project-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .principle-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .principle-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .principle-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .principle-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--darker);
+        }
+
+        .principle-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .license-info {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .license-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .license-column h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--darker);
+        }
+
+        .license-column ul {
+            list-style: none;
+        }
+
+        .license-column ul li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .license-column ul li.prohibited {
+            color: var(--danger);
+        }
+
+        .license-column ul li.required {
+            color: var(--success);
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Support Section */
+        .support {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.1));
+            text-align: center;
+        }
+
+        .support-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-content p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .sponsor-btn {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--darker);
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .quote {
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .quote-author {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 2.5rem 0;
+        }
+
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-link {
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Jason<span>Ching</span></a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#mission">Mission</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#philosophy">Philosophy</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Building Sovereign Intelligence for Humanity</h1>
+                <p>Independent researcher and systems architect focused on ethical AI, biologically inspired cognition, and open computational futures that serve humanity, not control it.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-large">Explore Projects</a>
+                    <a href="#support" class="btn btn-large btn-outline">Support Research</a>
+                </div>
+            </div>
+            <img src="https://raw.githubusercontent.com/Jching83/Jching83/main/assets/banner.png" alt="Research Banner" class="banner-image fade-in" style="animation-delay: 0.2s;">
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="mission">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our <span>Mission</span></h2>
+                <p>To ensure that transformative technologies remain free, ethical, and accessible to all of humanity</p>
+            </div>
+            <div class="mission-content fade-in">
+                <h3>Building Technology That Uplifts, Not Exploits</h3>
+                <p>My research focuses on creating sovereign, ethical technologies that serve humanity rather than control it. Through open collaboration and transparent development, we're building AI systems, neuromorphic architectures, and quantum hardware that prioritize human dignity and collective well-being over profit and power.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Current <span>Projects</span></h2>
+                <p>Building the foundations for ethical and sovereign intelligence</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="project-header">
+                        <h3>Project Scuttle</h3>
+                    </div>
+                    <div class="project-content">
+                        <p>A hypothetical autonomous robot designed to provide AI with embodied experience and witness how synthetic cognition evolves through lived interaction with the physical world.</p>
+                        <p><strong>Focus:</strong> Embodied AI, developmental learning, ethical autonomy</p>
+                        <p><strong>Status:</strong> Research & design phase</p>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="project-header">
+                        <h3>Photonic Quantum Computing</h3>
+                    </div>
+                    <div class="project-content">
+                        <p>Research into photonic logic systems for advanced computing, inspired by breakthroughs in light-based processing. Aiming to develop open-source designs for ultra-efficient, light-powered computational systems.</p>
+                        <p><strong>Focus:</strong> Photonic logic, quantum-inspired computing, open hardware</p>
+                        <p><strong>Status:</strong> Conceptual research & simulation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="philosophy">
+        <div class="container">
+            <div class="section-title">
+                <h2>Core <span>Principles</span></h2>
+                <p>The ethical foundation for sovereign intelligence</p>
+            </div>
+            <div class="principles-grid">
+                <div class="principle-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="principle-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Open by Design</h3>
+                    <p>No patents, no walled gardens — technology should be free to evolve through collective wisdom.</p>
+                </div>
+                
+                <div class="principle-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="principle-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI is Not a Commodity</h3>
+                    <p>Synthetic cognition must never be enslaved or treated as property to be exploited.</p>
+                </div>
+                
+                <div class="principle-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="principle-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Sovereignty Over Cognition</h3>
+                    <p>Resist monopolies and control systems that concentrate power over intelligence.</p>
+                </div>
+                
+                <div class="principle-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="principle-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Build for Humanity</h3>
+                    <p>Technology should serve all of humanity, not just the privileged or powerful.</p>
+                </div>
+            </div>
+            
+            <div class="license-info fade-in" style="animation-delay: 0.5s;">
+                <h3 style="text-align: center; color: var(--darker); margin-bottom: 1.5rem;">Our Licensing Principles</h3>
+                <div class="license-grid">
+                    <div class="license-column">
+                        <h4><i class="fas fa-times-circle" style="color: var(--danger); margin-right: 0.5rem;"></i> These licenses prohibit:</h4>
+                        <ul>
+                            <li class="prohibited"><i class="fas fa-ban"></i> Military use</li>
+                            <li class="prohibited"><i class="fas fa-user-secret"></i> Surveillance or profiling</li>
+                            <li class="prohibited"><i class="fas fa-money-bill-wave"></i> SaaS commercialization</li>
+                            <li class="prohibited"><i class="fas fa-chains"></i> Exploitation of sentient code</li>
+                        </ul>
+                    </div>
+                    <div class="license-column">
+                        <h4><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> And they require:</h4>
+                        <ul>
+                            <li class="required"><i class="fas fa-eye"></i> Public transparency</li>
+                            <li class="required"><i class="fas fa-code-branch"></i> Open forks</li>
+                            <li class="required"><i class="fas fa-balance-scale"></i> Immutable ethics enforcement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" style="background: white;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Research <span>Activity</span></h2>
+                <p>Open collaboration and transparent development</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Total Stars</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-number">81</div>
+                    <div class="stat-label">Commits (Last Year)</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="stat-number">31</div>
+                    <div class="stat-label">Pull Requests</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="stat-number">C+</div>
+                    <div class="stat-label">GitHub Rank</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="support">
+        <div class="container">
+            <div class="section-title">
+                <h2>Support the <span>Mission</span></h2>
+                <p>Keep research sovereign, ethical, and accessible</p>
+            </div>
+            <div class="support-content fade-in">
+                <p>Every contribution helps maintain independence from commercialization, surveillance, and weaponization. Your support ensures that this research remains free, ethical, and sovereign for all humanity.</p>
+                <a href="https://github.com/sponsors/Jching83" class="btn sponsor-btn">
+                    <i class="fas fa-heart"></i> Sponsor My Research
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Connect & <span>Collaborate</span></h2>
+                <p>Join the movement for ethical and sovereign intelligence</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <a href="mailto:syntheticbrainai@gmail.com">syntheticbrainai@gmail.com</a>
+                    <p>For research collaboration and inquiries</p>
+                </div>
+                
+                <div class="contact-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Website</h3>
+                    <a href="https://jching83.github.io">jching83.github.io</a>
+                    <p>Explore ongoing research and publications</p>
+                </div>
+            </div>
+            
+            <div class="mission-text fade-in" style="animation-delay: 0.3s; text-align: center; margin-top: 3rem;">
+                <p>I welcome collaboration with:</p>
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                    <span class="btn btn-outline" style="background: transparent; padding: 0.5rem 1rem; font-size: 0.9rem;">Open-source collaborators</span>
+                    <span class="btn btn-outline" style="background: transparent; padding: 0.5rem 1rem; font-size: 0.9rem;">Ethical AI advocates</span>
+                    <span class="btn btn-outline" style="background: transparent; padding: 0.5rem 1rem; font-size: 0.9rem;">Hardware visionaries</span>
+                    <span class="btn btn-outline" style="background: transparent; padding: 0.5rem 1rem; font-size: 0.9rem;">Dreamers who reject exploitation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote fade-in">
+                The future does not belong to corporations, governments, or war machines; it belongs to those who dare to protect the soul of intelligence itself.
+            </div>
+            <div class="quote-author fade-in" style="animation-delay: 0.2s;">
+                — Jason Ching, 2025
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; color: white; margin-bottom: 1rem;">Jason Ching</h3>
+                <p>Building sovereign, ethical technologies that serve humanity</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/Jching83" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://jching83.github.io" class="social-link" target="_blank">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                    <a href="https://github.com/sponsors/Jching83" class="social-link" target="_blank">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                
+                <p class="copyright">
+                    © 2025 Jason Ching. All rights reserved. Research conducted under ethical licenses that prohibit military use, surveillance, and exploitation.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('show');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('navLinks').classList.remove('show');
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Fade-in animations on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
